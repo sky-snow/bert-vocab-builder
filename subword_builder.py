@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright 2018 The Tensor2Tensor Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +39,7 @@ tf.flags.DEFINE_string('output_filename', '/tmp/my.subword_text_encoder',
 tf.flags.DEFINE_string('corpus_filepattern', '',
                        'Corpus of one or more text files')
 tf.flags.DEFINE_string('vocab_filepattern', '', 'One or more vocabulary files '
-                       '(one word per line as "word,count")')
+                                                '(one word per line as "word,count")')
 tf.flags.DEFINE_integer('min_count', 5, 'Minimum subtoken count in corpus')
 tf.flags.DEFINE_integer('corpus_max_lines', None,
                         'How many lines of corpus to read')
@@ -53,34 +53,34 @@ FLAGS = tf.flags.FLAGS
 
 
 def main(unused_argv):
-  if FLAGS.log_level not in ['DEBUG', 'INFO', 'ERROR']:
-    raise ValueError('Set verbosity among "DEBUG", "INFO", "ERROR"')
-  tf.logging.set_verbosity(FLAGS.log_level)
-  if FLAGS.corpus_filepattern and FLAGS.vocab_filepattern:
-    raise ValueError(
-        'Must only provide one of --corpus_filepattern or --vocab_filepattern')
+    if FLAGS.log_level not in ['DEBUG', 'INFO', 'ERROR']:
+        raise ValueError('Set verbosity among "DEBUG", "INFO", "ERROR"')
+    tf.logging.set_verbosity(FLAGS.log_level)
+    if FLAGS.corpus_filepattern and FLAGS.vocab_filepattern:
+        raise ValueError(
+            'Must only provide one of --corpus_filepattern or --vocab_filepattern')
 
-  elif FLAGS.corpus_filepattern:
-    token_counts = tokenizer.corpus_token_counts(
-        FLAGS.corpus_filepattern,
-        FLAGS.corpus_max_lines,
-        split_on_newlines=FLAGS.split_on_newlines, additional_chars=FLAGS.additional_chars)
+    elif FLAGS.corpus_filepattern:
+        token_counts = tokenizer.corpus_token_counts(
+            FLAGS.corpus_filepattern,
+            FLAGS.corpus_max_lines,
+            split_on_newlines=FLAGS.split_on_newlines, additional_chars=FLAGS.additional_chars)
 
-  elif FLAGS.vocab_filepattern:
-    token_counts = tokenizer.vocab_token_counts(FLAGS.vocab_filepattern,
-                                                FLAGS.corpus_max_lines)
+    elif FLAGS.vocab_filepattern:
+        token_counts = tokenizer.vocab_token_counts(FLAGS.vocab_filepattern,
+                                                    FLAGS.corpus_max_lines)
 
-  else:
-    raise ValueError(
-        'Must provide one of --corpus_filepattern or --vocab_filepattern')
+    else:
+        raise ValueError(
+            'Must provide one of --corpus_filepattern or --vocab_filepattern')
 
-  encoder = text_encoder.SubwordTextEncoder()
-  encoder.build_from_token_counts(token_counts, FLAGS.min_count,
-                                  FLAGS.num_iterations, max_subtoken_length=FLAGS.max_subtoken_length,
-                                  backward=FLAGS.backward)
-  encoder.store_to_file(FLAGS.output_filename, add_single_quotes=False)
-  #encoder.store_to_file_with_counts(FLAGS.output_filename + "_counts")
+    encoder = text_encoder.SubwordTextEncoder()
+    encoder.build_from_token_counts(token_counts, FLAGS.min_count,
+                                    FLAGS.num_iterations, max_subtoken_length=FLAGS.max_subtoken_length,
+                                    backward=FLAGS.backward)
+    encoder.store_to_file(FLAGS.output_filename, add_single_quotes=False)
+    # encoder.store_to_file_with_counts(FLAGS.output_filename + "_counts")
 
 
 if __name__ == '__main__':
-  tf.app.run()
+    tf.app.run()
