@@ -34,9 +34,9 @@ import tokenizer
 
 import tensorflow as tf
 
-tf.flags.DEFINE_string('output_filename', '/tmp/my.subword_text_encoder',
+tf.flags.DEFINE_string('output_filename', r'./my.subword_text_encoder',
                        'where to store the SubwordTextEncoder')
-tf.flags.DEFINE_string('corpus_filepattern', '',
+tf.flags.DEFINE_string('corpus_filepattern', r'G:\BTU\bert_corpus\bert_corpus\alloys\1\1.txt',
                        'Corpus of one or more text files')
 tf.flags.DEFINE_string('vocab_filepattern', '', 'One or more vocabulary files '
                        '(one word per line as "word,count")')
@@ -83,4 +83,4 @@ def main(unused_argv):
 
 
 if __name__ == '__main__':
-  tf.app.run()
+    tf.app.run()
