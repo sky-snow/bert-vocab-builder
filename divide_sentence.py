@@ -45,7 +45,7 @@ def divide_document_to_sentence(file_path: str) -> Any:
         return text_item
 
 
-def productor(paths: list) -> None:
+def productor(paths: list):
     executor = ThreadPoolExecutor(max_workers=max_workers_number)
     for result in executor.map(divide_document_to_sentence(), paths):
         task_queue.put(result)
