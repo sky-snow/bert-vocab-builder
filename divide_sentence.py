@@ -53,7 +53,8 @@ def productor(paths: list):
 
 
 def consumer():
-    ...
+    executor = ThreadPoolExecutor(max_workers=max_workers_number)
+
 
 
 with ThreadPoolExecutor(max_workers=max_workers_number) as task:
