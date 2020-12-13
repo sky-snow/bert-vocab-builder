@@ -34,7 +34,7 @@ import tokenizer
 
 import tensorflow as tf
 
-tf.flags.DEFINE_string('output_filename', r'./my.subword_text_encoder',
+tf.flags.DEFINE_string('output_filename', r'./my.subword_text_encoder_1',
                        'where to store the SubwordTextEncoder')
 tf.flags.DEFINE_string('corpus_filepattern', r'G:\BTU\bert_corpus\bert_corpus\alloys\1\1.txt',
                        'Corpus of one or more text files')
